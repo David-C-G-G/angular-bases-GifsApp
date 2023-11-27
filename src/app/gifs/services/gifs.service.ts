@@ -17,7 +17,9 @@ export class GifsService {
   private serviceUrl:     string = 'https://api.giphy.com/v1/gifs';
 
 
-  constructor( private http: HttpClient ) { }
+  constructor( private http: HttpClient ) {
+    this.loadLocalStorage();
+  }
 
   get tagsHistory(){
     return [...this._tagsHistory];
@@ -38,6 +40,22 @@ export class GifsService {
 
     //limitando el arreglo a 10 elementos unicamente
     this._tagsHistory = this._tagsHistory.splice(0,10);
+
+    //mandamos a llamar la funcion de cuardar localStorage
+    this.saveLocalStorage();
+  }
+
+  private saveLocalStorage():void{
+    //convertimos nuestro arreglo en un String con: JSON.stringfy
+    localStorage.setItem('history', JSON.stringify(this._tagsHistory));
+  }
+
+  private loadLocalStorage():void{
+    if(!localStorage.getItem('history'))return;
+    this._tagsHistory = JSON.parse(localStorage.getItem('history')!);
+
+    if(this._tagsHistory.length === 0)return;
+    this.searchTag(this._tagsHistory[0]);
   }
 
   //para usar el ejemplo comentado se pone async searchTag() antes del metodo
