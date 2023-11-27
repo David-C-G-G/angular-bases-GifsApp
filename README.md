@@ -1,4 +1,6 @@
-# 03GifsApp
+# 03-GifsApp
+Toda la aplicación fue hecha en la seccion 7 del Curso de Angular
+27 noviembre 2023
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.4.
 
